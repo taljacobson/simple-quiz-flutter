@@ -29,8 +29,8 @@ class QuestionTextState extends State<QuestionText> with SingleTickerProviderSta
   @override
     void dispose() {
       // TODO: implement dispose
-      super.dispose();
       _fontSizeAnimController.dispose();
+      super.dispose();
     }
 
   @override

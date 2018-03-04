@@ -4,21 +4,21 @@ import '../utils/quiz.dart';
 import '../ui/answer_button.dart';
 import '../ui/question_text.dart';
 import '../ui/answer_overlay.dart';
+import './score_page.dart';
+
 class QuizPage extends StatefulWidget {
   @override
   State createState() => new QuizPageState();
 }
 
 class QuizPageState extends State<QuizPage> {
-
   Question currentQuestion;
-  Quiz quiz = new Quiz([    
+  Quiz quiz = new Quiz([
     new Question('is Elan Musk Human', false),
     new Question('is Pizza Healthy', true),
     new Question('is the world Flat', false),
     new Question('have Humans landed on the Moon', true),
-    ]
-  );
+  ]);
 
   String questionText;
   int questionNumber;
@@ -37,7 +37,7 @@ class QuizPageState extends State<QuizPage> {
   void _handleAnswer(bool answer) {
     isCorrect = (currentQuestion.answer == answer);
     quiz.answer(isCorrect);
-    this.setState(()  { 
+    this.setState(() {
       overLayVisiable = true;
     });
   }
@@ -55,21 +55,26 @@ class QuizPageState extends State<QuizPage> {
             new AnswerButton(false, () => this._handleAnswer(false))
           ],
         ),
-        overLayVisiable ? new AnswerOverlay(isCorrect, () => _handleOverlayTap()): new Container(),
+        overLayVisiable
+            ? new AnswerOverlay(isCorrect, () => _handleOverlayTap())
+            : new Container(),
       ],
     );
   }
 
   void _handleOverlayTap() {
-    
     currentQuestion = quiz.nextQuestion;
-    questionNumber = quiz.questionNumber;
-    questionText = currentQuestion.question;
+    if (quiz.length == questionNumber) {
+     Navigator.of(context).pushAndRemoveUntil(new MaterialPageRoute(
+          builder: (BuildContext context) =>
+              new ScorePage(quiz.score, quiz.length)), (Route route) => route == null);
+      return ;
+    }
 
     this.setState(() {
       overLayVisiable = !overLayVisiable;
+      questionNumber = quiz.questionNumber;
+      questionText = currentQuestion.question;
     });
   }
-
-
 }

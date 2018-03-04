@@ -31,8 +31,8 @@ class AnswerOverlayState extends State<AnswerOverlay>
   @override
   void dispose() {
     // TODO: implement dispose
-    super.dispose();
     _iconAnimController.dispose();
+    super.dispose();
   }
 
   @override

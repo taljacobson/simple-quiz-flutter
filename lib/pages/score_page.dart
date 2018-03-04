@@ -4,9 +4,9 @@ import 'landing_page.dart';
 class ScorePage extends StatelessWidget {
 
   final int _score;
-  final int _total_Questions;
+  final int _totalQuestions;
 
-  ScorePage(this._score, this._total_Questions);
+  ScorePage(this._score, this._totalQuestions);
 
   @override
     Widget build(BuildContext context) {
@@ -17,7 +17,7 @@ class ScorePage extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
           new Text('your Score', style: new TextStyle(color: Colors.white, fontSize: 50.0, fontWeight: FontWeight.bold),),
-          new Text(_score.toString() + '/' + _total_Questions.toString(), style: new TextStyle(color: Colors.white, fontSize: 80.0, fontWeight: FontWeight.bold)),
+          new Text(_score.toString() + '/' + _totalQuestions.toString(), style: new TextStyle(color: Colors.white, fontSize: 80.0, fontWeight: FontWeight.bold)),
           new IconButton(
             icon: new Icon(Icons.arrow_right, color: Colors.white, size: 50.0,),
             color: Colors.white,
