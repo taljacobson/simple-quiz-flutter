@@ -36,8 +36,6 @@ class QuizPageState extends State<QuizPage> {
 
   void _handleAnswer(bool answer) {
     isCorrect = (currentQuestion.answer == answer);
-    
-    print( isCorrect);
     quiz.answer(isCorrect);
     this.setState(()  { 
       overLayVisiable = true;
@@ -57,9 +55,20 @@ class QuizPageState extends State<QuizPage> {
             new AnswerButton(false, () => this._handleAnswer(false))
           ],
         ),
-        overLayVisiable ? new AnswerOverlay(isCorrect): new Container(),
+        overLayVisiable ? new AnswerOverlay(isCorrect, () => _handleOverlayTap()): new Container(),
       ],
     );
+  }
+
+  void _handleOverlayTap() {
+    
+    currentQuestion = quiz.nextQuestion;
+    questionNumber = quiz.questionNumber;
+    questionText = currentQuestion.question;
+
+    this.setState(() {
+      overLayVisiable = !overLayVisiable;
+    });
   }
 
 
